@@ -81,9 +81,7 @@ class Ropy
     move_next
   end
 
-  def debug txt
-    puts " #{txt} => [#{@stack.join(",")}"
-  end
+  def debug txt ; puts " #{txt} => [#{@stack.join(",")}"      ; end
 
   def push      ; @stack << current.to_i                      ; end
   def pop       ; @stack.pop                                  ; end
