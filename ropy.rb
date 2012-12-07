@@ -58,13 +58,21 @@ class Ropy
     if possible_count == 0
       @done = true # END OF ROPE
     else
+      
       came_from_index = neighbors.index{|x| x[0] == oposite(@prev_direction)}
-      #puts "came from #{came_from_index} #{neighbors[came_from_index]}"
-      #p neighbors
-      neighbors.each_with_index do |n, i|
-        unless came_from_index == i or n[1] == nil
-          #puts "moving #{n}"
-          move n[0]
+      
+      if result == 0
+        enumerator = :reverse_each
+        range = ((came_from_index - 1)..(came_from_index + 7))
+      else
+        enumerator = :each
+        range = ((came_from_index + 1)..(came_from_index + 9))
+      end
+
+      range.send(enumerator) do |i|        
+        i = i % 8
+        unless came_from_index == i or neighbors[i][1] == nil
+          move neighbors[i][0]
           return
         end
       end

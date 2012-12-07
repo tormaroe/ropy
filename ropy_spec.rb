@@ -97,7 +97,28 @@ example :description => 'The source can rope around in any direction',
                                 2
                                  33
                                   *
-                                 *
+                               +2*
                          ),
-  :expected_result   => 18,
+  :expected_result   => 20,
+  :silent            => true
+
+
+example :description => 'Conditions: positive number means select path clockwise',
+  :source            => %(    
+                                1_5+
+                                |
+                                4
+                                +
+                         ),
+  :expected_result   => 6,
+  :silent            => true
+
+example :description => 'Conditions: zero means select path counter clockwise',
+  :source            => %(    
+                                0_5+
+                                |
+                                4
+                                +
+                         ),
+  :expected_result   => 4,
   :silent            => true
