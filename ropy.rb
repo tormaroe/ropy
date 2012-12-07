@@ -8,6 +8,7 @@ class Ropy
     @i, @j = 0, 0
     @done = false
     @silent = false
+    @prev_direction = :east
     
     @operations = {
       '&' => :join,
@@ -23,7 +24,7 @@ class Ropy
       '!' => :not
     }
 
-    seek_token while current == ' ' and not @done
+    seek_token while [' ', nil].include?(current) and not @done
   end
   
   def seek_token
@@ -32,32 +33,96 @@ class Ropy
     elsif @i < @tokens.size
       @i += 1
       @j = 0
-    else
-      @done = true  
     end
   end
 
   def current
     @tokens[@i][@j]
+  rescue Exception
+    @done = true # END OF ROPE
   end
 
   def move_next
-    #if @tokens[@i].size < @j + 1 and not (@tokens[@i][@j + 1] == ' ')
-      move :east
-=begin
-      Her må jeg holde track på hva forrige celle var, den kan jeg ikke gå til
-      Og så må jeg skjekke alle andre retninger.
-        Hvis det bare finnes en mulig retning å gå, så går vi dit.
-        Hvis det finnes 2 retninger er det en if-test
-        Hvis det finnes mer enn 2 har vi en syntax error
-=end
+    neighbors = [
+      [:east        , peek_token(:east)],
+      [:south_east  , peek_token(:south_east)],
+      [:south       , peek_token(:south)],
+      [:south_west  , peek_token(:south_west)],
+      [:west        , peek_token(:west)],
+      [:north_west  , peek_token(:north_west)],
+      [:north       , peek_token(:north)],
+      [:north_east  , peek_token(:north_east)],
+    ]
+
+    possible_count = neighbors.count{|x| not x[1] == nil}
+    if possible_count == 0
+      @done = true # END OF ROPE
+    else
+      came_from_index = neighbors.index{|x| x[0] == oposite(@prev_direction)}
+      #puts "came from #{came_from_index} #{neighbors[came_from_index]}"
+      #p neighbors
+      neighbors.each_with_index do |n, i|
+        unless came_from_index == i or n[1] == nil
+          #puts "moving #{n}"
+          move n[0]
+          return
+        end
+      end
+    end
+  end
+
+  def oposite direction
+    return :east if direction == :west
+    return :west if direction == :east
+    return :south if direction == :north
+    return :north if direction == :south
+    return :south_east if direction == :north_west
+    return :south_west if direction == :north_east
+    return :north_east if direction == :south_west
+    return :north_west if direction == :south_east
+  end
+
+  def peek_token direction
+    coords = coords_for_direction direction
+    return nil if direction == oposite(@prev_direction) or not valid_coords(coords)
+    return nil if @tokens[coords[0]][coords[1]] == ' '
+    return @tokens[coords[0]][coords[1]]
+  end
+
+  def valid_coords coords
+    coords[0] >= 0 and 
+    coords[1] >= 0 and 
+    @tokens.size > coords[0] and 
+    @tokens[coords[0]].size > coords[1] 
+  end
+
+  def coords_for_direction direction
+    case direction
+    when :east
+      [@i, @j + 1]
+    when :west
+      [@i, @j - 1]
+    when :north
+      [@i - 1, @j]
+    when :south
+      [@i + 1, @j]
+    when :north_east
+      [@i - 1, @j + 1]
+    when :south_east
+      [@i + 1, @j + 1]
+    when :north_west
+      [@i - 1, @j - 1]
+    when :south_west
+      [@i + 1, @j - 1]
+    end
   end
 
   def move direction
-    case direction
-    when :east
-      @j += 1
-    end
+    #puts "move #{direction}"
+    coords = coords_for_direction direction
+    @i = coords[0]
+    @j = coords[1]
+    @prev_direction = direction
   end
 
   def execute
@@ -66,6 +131,9 @@ class Ropy
 
   def digit? token
     token.ord >= 48 and token.ord <= 57
+  rescue
+    #p @tokens
+    false
   end
 
   def evaluate

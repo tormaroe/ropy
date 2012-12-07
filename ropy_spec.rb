@@ -1,6 +1,6 @@
 
 require './ropy.rb'
-
+### --------------------------------------- TINY TEST FRAMEWORK ---------------------------------------------------
 def example spec
   begin
     ropy = Ropy.new spec[:source]
@@ -17,6 +17,11 @@ def example spec
 end
 
 # TODO: empty source
+
+example :description => 'Empty program',
+  :source            => %(             ),
+  :expected_result   => nil,
+  :silent            => true
 
 example :description => 'Put 1 on the stack',
   :source            => %(      1      ),
@@ -78,3 +83,21 @@ example :description => 'Create text by joining stack',
   :expected_result   => "yo!",
   :silent            => true
 
+example :description => 'The source can be vertical',
+  :source            => %(    
+                                2
+                                3
+                                *
+                         ),
+  :expected_result   => 6,
+  :silent            => true
+
+example :description => 'The source can rope around in any direction',
+  :source            => %(    
+                                2
+                                 33
+                                  *
+                                 *
+                         ),
+  :expected_result   => 18,
+  :silent            => true
