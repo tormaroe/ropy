@@ -38,3 +38,18 @@ example :description => 'More arithmetics..',
   :expected_result   => 10,
   :silent            => true
 
+example :description => 'Swap position of two elements',
+  :source            => %(   10<&   ),
+  :expected_result   => 10,
+  :silent            => true
+
+example :description => 'Duplicate an element',
+  :source            => %(   3>+   ),
+  :expected_result   => 6,
+  :silent            => true
+
+example :description => 'Create text by joining stack',
+  :source            => %( 33&___853**___9<-___>01&___+__"   ),
+  :expected_result   => "yo!",
+  :silent            => false
+
