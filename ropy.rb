@@ -17,7 +17,10 @@ class Ropy
       '/' => :devide,
       '<' => :swap,
       '>' => :duplicate,
-      '"' => :stringify_stack
+      '"' => :stringify_stack,
+      '?' => :pop,
+      '%' => :modulo,
+      '!' => :not
     }
 
     seek_token while current == ' ' and not @done
@@ -82,16 +85,18 @@ class Ropy
     puts " #{txt} => [#{@stack.join(",")}"
   end
 
-  def push      ; @stack << current.to_i                     ; end
-  def pop       ; @stack.pop                                 ; end
-  def add       ; @stack << pop + pop                        ; end
-  def multiply  ; @stack << pop * pop                        ; end
-  def subtract  ; @stack << pop - pop ; end
-  def devide    ; @stack << pop / pop ; end
-  def join      ; @stack << "#{pop}#{pop}".to_i ; end
-  def swap      ; a,b = pop,pop ; @stack << a ; @stack << b ; end
-  def duplicate ; x = pop ; @stack << x ; @stack << x ; end
-  def result    ; @stack.last ; end
+  def push      ; @stack << current.to_i                      ; end
+  def pop       ; @stack.pop                                  ; end
+  def add       ; @stack << pop + pop                         ; end
+  def multiply  ; @stack << pop * pop                         ; end
+  def subtract  ; @stack << pop - pop                         ; end
+  def modulo    ; @stack << pop % pop                         ; end
+  def devide    ; @stack << pop / pop                         ; end
+  def join      ; @stack << "#{pop}#{pop}".to_i               ; end
+  def swap      ; a,b = pop,pop ; @stack << a ; @stack << b   ; end
+  def duplicate ; x = pop ; @stack << x ; @stack << x         ; end
+  def result    ; @stack.last                                 ; end
+  def not       ; @stack << (if pop > 0 then 0 else 1 end)    ; end
 
   def stringify_stack
     tmp = @stack.map{|x| x.chr }.join.reverse
