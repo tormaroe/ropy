@@ -1,15 +1,20 @@
 
 class Ropy
+  attr_accessor :silent
 
   def initialize source
     @stack = []
     @tokens = source.split("\n").map{|line| line.split // }
     @i, @j = 0, 0
     @done = false
+    @silent = false
     
     @operations = {
       '&' => :join,
-      '+' => :add
+      '+' => :add,
+      '-' => :subtract,
+      '*' => :multiply,
+      '/' => :devide
     }
 
     seek_token while current == ' ' and not @done
@@ -66,16 +71,20 @@ class Ropy
     elsif @operations.include? token
       self.send @operations[token]
     end
+    debug token unless @silent
     move_next
   end
 
   def debug txt
-    puts "<#{@stack.join(" ")}> #{txt}"
+    puts " #{txt} => [#{@stack.join("|")}"
   end
 
   def push   ; @stack << current.to_i ; end
   def pop    ; @stack.pop ; end
   def add    ; @stack << pop + pop ; end
-  def join   ; top = pop ; @stack << "#{pop}#{top}".to_i ; end
+  def multiply ; @stack << pop * pop ; end
+  def subtract ; @stack << pop - pop ; end
+  def devide ; @stack << pop / pop ; end
+  def join   ; @stack << "#{pop}#{pop}".to_i ; end
   def result ; @stack.last ; end
 end
