@@ -1,5 +1,8 @@
 **Ropy** is a stack-based, esoteric, 2D programming language. It's most similar to [Befunge](http://esolangs.org/wiki/Befunge). The interpreter is written in Ruby.
 
+##Why?##
+This programming language is my entry into the [PLT Games](http://www.pltgames.com/) for December 2012.
+
 ##Code sample##
 This solution to [Project Euler problem #1](http://projecteuler.net/problem=1) is the first real program ever written in Ropy:
 
@@ -136,10 +139,7 @@ Here is a dump of how the instructions modify the stack:
     _ => [45,1
     ? => [45
 
-The result is what's left on the top of the stack. The program calculates the sum of all digits from 1 to 9.
-
-##Why?##
-This programming language is my entry into the [PLT Games](http://www.pltgames.com/) for December 2012.
+The result is what's left on the top of the stack. The program calculates the sum of all digits from 1 to 8.
 
 ##License##
 Copyright (c) 2012 Torbjørn Marø
