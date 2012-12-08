@@ -106,30 +106,20 @@ class Ropy
 
   def coords_for_direction direction
     case direction
-    when :east
-      [@i, @j + 1]
-    when :west
-      [@i, @j - 1]
-    when :north
-      [@i - 1, @j]
-    when :south
-      [@i + 1, @j]
-    when :north_east
-      [@i - 1, @j + 1]
-    when :south_east
-      [@i + 1, @j + 1]
-    when :north_west
-      [@i - 1, @j - 1]
-    when :south_west
-      [@i + 1, @j - 1]
+    when :east then [@i, @j + 1]
+    when :west then [@i, @j - 1]
+    when :north then [@i - 1, @j]
+    when :south then [@i + 1, @j]
+    when :north_east then [@i - 1, @j + 1]
+    when :south_east then [@i + 1, @j + 1]
+    when :north_west then [@i - 1, @j - 1]
+    when :south_west then [@i + 1, @j - 1]
     end
   end
 
   def move direction
-    #puts "move #{direction}"
     coords = coords_for_direction direction
-    @i = coords[0]
-    @j = coords[1]
+    @i, @j = *coords
     @prev_direction = direction
   end
 
@@ -140,7 +130,6 @@ class Ropy
   def digit? token
     token.ord >= 48 and token.ord <= 57
   rescue
-    #p @tokens
     false
   end
 
@@ -155,7 +144,6 @@ class Ropy
     end
     debug token unless @silent
     move_next
-    #sleep 0.001
   end
 
   def debug txt ; puts " #{txt} => [#{@stack.join(",")}"      ; end
