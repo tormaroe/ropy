@@ -139,7 +139,7 @@ Here is a dump of how the instructions modify the stack:
     _ => [45,1
     ? => [45
 
-The result is what's left on the top of the stack. The program calculates the sum of all digits from 1 to 8.
+The result is what's left on the top of the stack. The program calculates the sum of all digits from 1 to 9.
 
 ##License##
 Copyright (c) 2012 Torbjørn Marø
