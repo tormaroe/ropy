@@ -16,7 +16,7 @@ def example spec
   end
 end
 
-# TODO: empty source
+### --------------------------------------------- TESTS -----------------------------------------------------------
 
 example :description => 'Empty program',
   :source            => %(             ),
