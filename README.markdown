@@ -1,7 +1,7 @@
 **Ropy** is a stack-based, esoteric, 2D programming language.
 
 ##Code sample##
-This solution to [Project Euler problem #1](http://projecteuler.net/problem=1) is the first ever real program ever written in Ropy:
+This solution to [Project Euler problem #1](http://projecteuler.net/problem=1) is the first real program ever written in Ropy:
 
        0_99872***-______   (c) Torbjorn Maro    __+___
                        |                       |      |
