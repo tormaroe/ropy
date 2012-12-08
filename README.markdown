@@ -1,4 +1,6 @@
-**Ropy** is a stack-based, esoteric, 2D programming language. It's most similar to [Befunge](http://esolangs.org/wiki/Befunge). The interpreter is written in Ruby.
+**Ropy** is a stack-based, esoteric, 2D programming language. It's mostly works the same way as [Befunge](http://esolangs.org/wiki/Befunge), but the way the instruction pointer works is, as far as the author knows, unique to Ropy. 
+
+The interpreter is written in Ruby.
 
 ##Why?##
 This programming language is my entry into the [PLT Games](http://www.pltgames.com/) for December 2012.
@@ -30,6 +32,12 @@ This solution to [Project Euler problem #1](http://projecteuler.net/problem=1) i
 In order to run Ropy you need to have Ruby installed. You may then run the interpreter from the command line, giving it a file with Ropy-code to evaluate as the first and only argument.
 
     PS> .\ropy.rb .\examples\euler1.ropy
+
+The output from this would be:
+
+    Ropy version 0.1
+    Executing file .\examples\euler1.ropy
+    Result => 233168
 
 ##How it works##
 ###Initialization and program flow###
