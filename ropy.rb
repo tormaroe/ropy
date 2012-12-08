@@ -167,3 +167,11 @@ class Ropy
     @stack << tmp
   end
 end
+
+if __FILE__ == $PROGRAM_NAME
+  puts "Ropy version 0.1"
+  puts "Executing file #{AGRV[0]}"
+  ropy = Ropy.new File.read(ARGV[0])
+  puts "Result => #{ropy.result}"
+end
+
