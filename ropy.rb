@@ -155,6 +155,7 @@ class Ropy
     end
     debug token unless @silent
     move_next
+    #sleep 0.001
   end
 
   def debug txt ; puts " #{txt} => [#{@stack.join(",")}"      ; end

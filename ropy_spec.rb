@@ -122,3 +122,28 @@ example :description => 'Conditions: zero means select path counter clockwise',
                          ),
   :expected_result   => 4,
   :silent            => true
+
+example :description => 'Euler 1',
+  :source            => %(    
+    0_99872***-______   (c) Torbjorn Maro    __+___
+                    |                       |      |
+ This ROPY program  |             ??        1      <
+ calculates the     @1____?___>!_|  |___0___|_?_<__|
+ sum of all the        |         |                 |
+ multiples of 3 or     0         ?                 ?
+ 5 below 1000.         -         >                 |
+                       <         3          THIS IS THE END
+                       1         <
+          ______?______|         %
+          |                      |
+          |___0_>?__MOD_THREE____@__?____>5<%__
+          |                     |             |
+          |   +------------+    1             |
+          |   |            |    ?             |
+          |   |            |    |             |
+          |   +------------+    |___MOD_FIVE__@
+          |                                   |
+          |_______________NOT_INCLUDED________|
+                         ),
+  :expected_result   => 233168,
+  :silent            => true
