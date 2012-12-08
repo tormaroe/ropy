@@ -1,12 +1,12 @@
-**Ropy** is a stack-based, esoteric, 2D programming language.
+**Ropy** is a stack-based, esoteric, 2D programming language. It's most similar to [Befunge](http://esolangs.org/wiki/Befunge). The interpreter is written in Ruby.
 
 ##Code sample##
 This solution to [Project Euler problem #1](http://projecteuler.net/problem=1) is the first real program ever written in Ropy:
 
        0_99872***-______   (c) Torbjorn Maro    __+___
                        |                       |      |
-    This ROPY program  |             ??        1      <
-    calculates the     @1____?___>!_|  |___0___|_?_<__|
+    This ROPY program  |             ??        1      <  <= REDUCE LOOP
+    calculates the     @1____?___>!_|  |___0___|_?_<__|     MAKING SUM
     sum of all the        |         |                 |
     multiples of 3 or     0         ?                 ?
     5 below 1000.         -         >                 |
@@ -23,5 +23,73 @@ This solution to [Project Euler problem #1](http://projecteuler.net/problem=1) i
              |                                   |
              |_______________NOT_INCLUDED________|
 
+##Usage##
+In order to run Ropy you need to have Ruby installed. You may then run the interpreter from the command line, giving it a file with Ropy-code to evaluate as the first and only argument.
+
+    PS> .\ropy.rb .\examples\euler1.ropy
+
+##How it works##
+###Initialization and program flow###
+First the source is scanned from left to right, top to bottom, to find the first non-whitespace character; this is the first instruction. The next instruction is then found by moving the instruction pointer (IP) to a non-whitespace character one step in any direction (north, north-east, east, south-east, south, south-west, west, north-west).
+
+The previous instruction will never be selected as the next instruction, leaving only seven possible directions. Of the possibilities that are left, the interpreter will select the first in the clockwise direction from the direction from the previous IP position. Given these "cells":
+
+    +--------------+--------------+--------------+
+    |              |              |              |
+    |   Previous   |              |              |
+    |      IP      |              |      A       |
+    |   position   |              |              |
+    |              |              |              |
+    +--------------+--------------+--------------+
+    |              |              |              |
+    |              |              |              |
+    |              |     _IP_     |      B       |
+    |              |              |              |
+    |              |              |              |
+    +--------------+--------------+--------------+
+    |              |              |              |
+    |              |              |              |
+    |      E       |      D       |      C       |
+    |              |              |              |
+    |              |              |              |
+    +--------------+--------------+--------------+ 
+
+The next instruction would be **A**. This is only the case though if the topmost value on the stack is a number other than zero. If it is zero, the next instruction will be selected counter clockwise - **E** would be the next instruction.
+
+The program runs until there are no more cells for the IP to move to.
+
+###Instruction###
+
+| Character | Instruction                                       |
+| --------- | ------------------------------------------------- |
+|   0 - 9   | Pushes the number on the stack                    |
+|     +     | Adds two topmost numbers and push result to stack |
+|     -     | Subtracts two topmost, push to stack              |
+|     *     | Multiplies two topmost, push to stack             |
+|     /     | Devide two topmost, push to stack                 |
+|     <     | Swap twp topmost values                           |
+|     >     | Duplicate topmost value                           |
+|     ?     | Pop and discard topmost value                     |
+|     %     | Topmost modulo next value, push result to stack   |
+|     !     | NOT-operator, transforms topmost value            |
+|     &     | Join two topmost numbers into new number          |
+|     "     | Stringify stack                                   |
+|   Other   | Other characters does not modify the stack        |
+
+Notes:
+* The NOT-operator transforms the topmost value to 1 if it is 0, and to 0 if it is any other number.
+* Example usage of JOIN-operator: The program **001&** will result in the number **100** on the stack
+* Stringify stack will assume all values on the stack are ASCII-codes. The stack will be left with a signle string.
+
 ##Why?##
 This programming language is my entry into the [PLT Games](http://www.pltgames.com/) for December 2012.
+
+##License##
+Copyright (c) 2012 Torbjørn Marø
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+

@@ -1,8 +1,8 @@
 
        0_99872***-______   (c) Torbjorn Maro    __+___
                        |                       |      |
-    This ROPY program  |             ??        1      <
-    calculates the     @1____?___>!_|  |___0___|_?_<__|
+    This ROPY program  |             ??        1      <  <= REDUCE LOOP
+    calculates the     @1____?___>!_|  |___0___|_?_<__|     MAKING SUM
     sum of all the        |         |                 |
     multiples of 3 or     0         ?                 ?
     5 below 1000.         -         >                 |
