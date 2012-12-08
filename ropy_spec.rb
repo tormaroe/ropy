@@ -160,4 +160,16 @@ example :description => 'Another sample (for README)',
     |_+++9876_|
                          ),
   :expected_result   => 45,
+  :silent            => true
+
+
+example :description => 'Hello, World!',
+  :source            => %(    
+    001&&_>_8+_>_6+_>_3<-_>_8+__
+                               |
+    ___+<2*76___________+2*65__|
+   |
+   |_1>>&&_>_3<->>_7<-_>_3+____"
+                         ),
+  :expected_result   => "hello, world",
   :silent            => false
