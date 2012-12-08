@@ -1,4 +1,4 @@
-**Ropy** is a stack-based, esoteric, 2D programming language. It's mostly works the same way as [Befunge](http://esolangs.org/wiki/Befunge), but the way the instruction pointer works is, as far as the author knows, unique to Ropy. 
+**Ropy** is a stack-based, esoteric, 2D programming language. It's mostly works the same way as [Befunge](http://esolangs.org/wiki/Befunge), but the movement strategy of the instruction pointer is, as far as the author knows, unique to Ropy. 
 
 The interpreter is written in Ruby.
 
