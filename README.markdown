@@ -72,14 +72,9 @@ The program runs until there are no more cells for the IP to move to.
 |     ?     | Pop and discard topmost value                     |
 |     %     | Topmost modulo next value, push result to stack   |
 |     !     | NOT-operator, transforms topmost value to 1 if it is 0, and to 0 if it is any other number           |
-|     &     | Join two topmost numbers into new number          |
-|     "     | Stringify stack                                   |
-|   Other   | Other characters does not modify the stack        |
-
-Notes:
-* The NOT-operator transforms the topmost value to 1 if it is 0, and to 0 if it is any other number.
-* Example usage of JOIN-operator: The program **001&** will result in the number **100** on the stack
-* Stringify stack will assume all values on the stack are ASCII-codes. The stack will be left with a signle string.
+|     &     | Join two topmost numbers into new number. The program **001&** will result in the number **100** on the stack          |
+|     "     | Stringify stack will assume all values on the stack are ASCII-codes. The stack will be left with a signle string |
+|   Other   | Other characters does not modify the stack, bu are valid placeholders for the IP.        |
 
 ##Why?##
 This programming language is my entry into the [PLT Games](http://www.pltgames.com/) for December 2012.
