@@ -67,11 +67,11 @@ The program runs until there are no more cells for the IP to move to.
 |     -     | Subtracts two topmost, push to stack              |
 |     *     | Multiplies two topmost, push to stack             |
 |     /     | Devide two topmost, push to stack                 |
-|     <     | Swap twp topmost values                           |
+|     <     | Swap two topmost values                           |
 |     >     | Duplicate topmost value                           |
 |     ?     | Pop and discard topmost value                     |
 |     %     | Topmost modulo next value, push result to stack   |
-|     !     | NOT-operator, transforms topmost value            |
+|     !     | NOT-operator, transforms topmost value to 1 if it is 0, and to 0 if it is any other number           |
 |     &     | Join two topmost numbers into new number          |
 |     "     | Stringify stack                                   |
 |   Other   | Other characters does not modify the stack        |
