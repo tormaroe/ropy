@@ -147,3 +147,17 @@ example :description => 'Euler 1',
                          ),
   :expected_result   => 233168,
   :silent            => true
+
+example :description => 'Another sample (for README)',
+  :source            => %(    
+    ?_1     __
+       x   2  |
+        x x   3
+    _++__o____4
+    +     x
+    +      x_5_
+    +         |
+    |_+++9876_|
+                         ),
+  :expected_result   => 45,
+  :silent            => false

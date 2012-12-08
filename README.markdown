@@ -76,6 +76,68 @@ The program runs until there are no more cells for the IP to move to.
 |     "     | Stringify stack will assume all values on the stack are ASCII-codes. The stack will be left with a signle string |
 |   Other   | Other characters does not modify the stack, bu are valid placeholders for the IP.        |
 
+##Another example##
+If you have understood how Ropy works, you should now be able to understand what the following program does:
+
+    ?_1     __
+       x   2  |
+        x x   3
+    _++__o____4
+    +     x
+    +      x_5_
+    +         |
+    |_+++9876_|
+
+Here is a dump of how the instructions modify the stack:
+
+    ? => [
+    _ => [
+    1 => [1
+    x => [1
+    x => [1
+    o => [1
+    x => [1
+    2 => [1,2
+    _ => [1,2
+    _ => [1,2
+    | => [1,2
+    3 => [1,2,3
+    4 => [1,2,3,4
+    _ => [1,2,3,4
+    _ => [1,2,3,4
+    _ => [1,2,3,4
+    x => [1,2,3,4
+    x => [1,2,3,4
+    _ => [1,2,3,4
+    5 => [1,2,3,4,5
+    _ => [1,2,3,4,5
+    | => [1,2,3,4,5
+    | => [1,2,3,4,5
+    _ => [1,2,3,4,5
+    6 => [1,2,3,4,5,6
+    7 => [1,2,3,4,5,6,7
+    8 => [1,2,3,4,5,6,7,8
+    9 => [1,2,3,4,5,6,7,8,9
+    + => [1,2,3,4,5,6,7,17
+    + => [1,2,3,4,5,6,24
+    + => [1,2,3,4,5,30
+    _ => [1,2,3,4,5,30
+    | => [1,2,3,4,5,30
+    + => [1,2,3,4,35
+    + => [1,2,3,39
+    + => [1,2,42
+    _ => [1,2,42
+    + => [1,44
+    + => [45
+    _ => [45
+    x => [45
+    x => [45
+    1 => [45,1
+    _ => [45,1
+    ? => [45
+
+The result is what's left on the top of the stack. The program calculates the sum of all digits from 1 to 9.
+
 ##Why?##
 This programming language is my entry into the [PLT Games](http://www.pltgames.com/) for December 2012.
 
