@@ -172,4 +172,16 @@ example :description => 'Hello, World!',
    |_1>>&&_>_3<->>_7<-_>_3+____"
                          ),
   :expected_result   => "hello, world",
-  :silent            => false
+  :silent            => true 
+
+example :description => 'Hello, World! v2',
+  :source            => %(    
+    0     |()>()|     |()>()|     +()_()6     |()>()|     |()>()|
+    0     |     |     |     |     2     7     &     3     |     |
+    1     +     6     -     8     *     *     &     <     -     3
+    &     8     +     <     +     5     2     >     -     <     +
+    &     |     |     3     |     6     <     >     >     7     |
+    |()>()|     |()>()|     |()_()|     (+)_(1)     |()>()|     "
+                         ),
+  :expected_result   => "hello, world",
+  :silent            => true
