@@ -141,6 +141,22 @@ Here is a dump of how the instructions modify the stack:
 
 The result is what's left on the top of the stack. The program calculates the sum of all digits from 1 to 9.
 
+##Hello, World!##
+And finally, here is the obligatory *hello, world* program - just as [Kernighan & Ritchi](http://en.wikipedia.org/wiki/The_C_Programming_Language) did in 1978. This one acts as a programming language logo as well.
+
+    |   __+8>____-<3>____+6>__ _________________________
+    |  |                      |                         |
+    |  |   __>-<3>__&&>>1__   |  _____   ____  _______  |  __
+    |  |  |                |  | |  __ \ / __ \|  __ \ \ | / /
+    |  |  |                |  | | |__) | |  | | |__) \ \_/ / 
+    |  |  |__>7<-__>3+__"  |  | |  _  /| |  | |  ___/ \   /  
+    |  |                   |  | | | \ \| |__| | |      | |   
+    |  |__65*2+____67*2<+__|  | |_|  \_\\____/|_|      |_|   
+    |                         |                         |
+    |____001&&________>8+_____|__+ - * / < > ? % ! & "__|
+
+Ropy has a high potential for creating programs that are also ASCII art :)
+
 ##License##
 Copyright (c) 2012 Torbjørn Marø
 
