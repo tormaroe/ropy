@@ -137,8 +137,6 @@ class Ropy
     token = current
     if digit? token
       push
-    elsif token == ' '
-      @done = true
     elsif @operations.include? token
       self.send @operations[token]
     end
