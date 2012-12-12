@@ -4,6 +4,7 @@ class Ropy
 
   def initialize source
     @stack = []
+    @memory = {}
     @tokens = source.split("\n").map{|line| line.split // }
     @i, @j = 0, 0
     @done = false
@@ -21,7 +22,9 @@ class Ropy
       '"' => :stringify_stack,
       '?' => :pop,
       '%' => :modulo,
-      '!' => :not
+      '!' => :not,
+      '[' => :put,
+      ']' => :get
     }
 
     seek_token while [' ', nil].include?(current) and not @done
@@ -148,6 +151,8 @@ class Ropy
 
   def push      ; @stack << current.to_i                      ; end
   def pop       ; @stack.pop                                  ; end
+  def put       ; data,loc = pop,pop ; @memory[loc] = data    ; end
+  def get       ; @stack << @memory[pop]                      ; end
   def add       ; @stack << pop + pop                         ; end
   def multiply  ; @stack << pop * pop                         ; end
   def subtract  ; @stack << pop - pop                         ; end

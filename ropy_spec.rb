@@ -37,6 +37,11 @@ example :description => 'Put 9 on the stack by adding 3, 3, and 3',
   :source            => %(     333++      ),
   :expected_result   => 9,
   :silent            => true
+  
+example :description => 'Put 5 and 3 in memory and retrieve it',
+  :source            => %(   #75[63[6]7]  ),
+  :expected_result   => 5,
+  :silent            => true
 
 example :description => 'More arithmetics..',
   :source            => %(   229-2*6+/    ),
