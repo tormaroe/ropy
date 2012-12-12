@@ -85,6 +85,8 @@ The program runs until there are no more cells for the IP to move to.
 |     !     | NOT-operator, transforms topmost value to 1 if it is 0, and to 0 if it is any other number           |
 |     &     | Join two topmost numbers into new number. The program **001&** will result in the number **100** on the stack          |
 |     "     | Stringify stack will assume all values on the stack are ASCII-codes. The stack will be left with a signle string |
+|     [     | Puts topmost value into memory at location found on next value on stack. |
+|     ]     | Gets value stored at the location found on top of stack. Pushes in onto the stack. |
 |   Other   | Other characters does not modify the stack, bu are valid placeholders for the IP.        |
 
 ##Another example##
