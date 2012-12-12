@@ -172,7 +172,7 @@ class Ropy
 end
 
 if __FILE__ == $PROGRAM_NAME
-  puts "Ropy version 0.1"
+  puts "Ropy version 0.2"
   source_file = ARGV.pop
   if source_file
     puts "Executing file #{source_file}"
