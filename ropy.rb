@@ -51,11 +51,9 @@ class Ropy
       :west        , :north_west  , :north       , :north_east  , 
     ].map {|d| [d, peek_token(d)]}
 
-    possible_count = neighbors.count{|x| not x[1] == nil}
-    if possible_count == 0
-      @done = true # END OF ROPE
-    else
-      
+    @done = neighbors.count{|x| not x[1].nil? }.zero? # END OF ROPE
+    
+    unless @done
       came_from_index = neighbors.index{|x| x[0] == oposite(@prev_direction)}
       
       if result == 0
@@ -68,7 +66,7 @@ class Ropy
 
       range.send(enumerator) do |i|        
         i %= 8
-        unless came_from_index == i or neighbors[i][1] == nil
+        unless came_from_index == i or neighbors[i][1].nil?
           move neighbors[i][0]
           return
         end
@@ -116,8 +114,7 @@ class Ropy
   end
 
   def move direction
-    coords = coords_for_direction direction
-    @i, @j = *coords
+    @i, @j = *(coords_for_direction direction)
     @prev_direction = direction
   end
 
@@ -160,9 +157,7 @@ class Ropy
   def not       ; @stack << (if pop > 0 then 0 else 1 end)    ; end
 
   def stringify_stack
-    tmp = @stack.map{|x| x.chr }.join.reverse
-    @stack = []
-    @stack << tmp
+    @stack = [@stack.map{|x| x.chr }.join.reverse]
   end
 end
 
