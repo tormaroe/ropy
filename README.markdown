@@ -39,7 +39,9 @@ The output from this would be:
     Executing file .\examples\euler1.ropy
     Result => 233168
 
-You may also provide the v-option for verbose output. This will display the content of the stack after every instruction.  
+You may also provide the v-option for verbose output. This will display the content of the stack after every instruction. An example of this output can be seen further down in the README. 
+
+    PS> .\ropy.rb -v .\examples\euler1.ropy
 
 ##How it works##
 ###Initialization and program flow###
