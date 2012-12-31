@@ -39,6 +39,8 @@ The output from this would be:
     Executing file .\examples\euler1.ropy
     Result => 233168
 
+You may also provide the v-option for verbose output. This will display the content of the stack after every instruction.  
+
 ##How it works##
 ###Initialization and program flow###
 First the source is scanned from left to right, top to bottom, to find the first non-whitespace character; this is the first instruction. The next instruction is then found by moving the instruction pointer (IP) to a non-whitespace character one step in any direction (north, north-east, east, south-east, south, south-west, west, north-west).
