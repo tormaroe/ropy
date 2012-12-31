@@ -66,7 +66,7 @@ class Ropy
 
       range.send(enumerator) do |i|        
         i %= 8
-        unless came_from_index == i or neighbors[i][1].nil?
+        unless neighbors[i][1].nil?
           move neighbors[i][0]
           return
         end
