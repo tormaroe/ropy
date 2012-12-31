@@ -47,15 +47,9 @@ class Ropy
 
   def move_next
     neighbors = [
-      [:east        , peek_token(:east)],
-      [:south_east  , peek_token(:south_east)],
-      [:south       , peek_token(:south)],
-      [:south_west  , peek_token(:south_west)],
-      [:west        , peek_token(:west)],
-      [:north_west  , peek_token(:north_west)],
-      [:north       , peek_token(:north)],
-      [:north_east  , peek_token(:north_east)],
-    ]
+      :east        , :south_east  , :south       , :south_west  , 
+      :west        , :north_west  , :north       , :north_east  , 
+    ].map {|d| [d, peek_token(d)]}
 
     possible_count = neighbors.count{|x| not x[1] == nil}
     if possible_count == 0
@@ -73,7 +67,7 @@ class Ropy
       end
 
       range.send(enumerator) do |i|        
-        i = i % 8
+        i %= 8
         unless came_from_index == i or neighbors[i][1] == nil
           move neighbors[i][0]
           return
@@ -95,7 +89,8 @@ class Ropy
 
   def peek_token direction
     coords = coords_for_direction direction
-    return nil if direction == oposite(@prev_direction) or not valid_coords(coords)
+    return nil if direction == oposite(@prev_direction) 
+    return nil unless valid_coords(coords)
     return nil if @tokens[coords[0]][coords[1]] == ' '
     return @tokens[coords[0]][coords[1]]
   end
@@ -109,10 +104,10 @@ class Ropy
 
   def coords_for_direction direction
     case direction
-    when :east then [@i, @j + 1]
-    when :west then [@i, @j - 1]
-    when :north then [@i - 1, @j]
-    when :south then [@i + 1, @j]
+    when :east then       [@i,     @j + 1]
+    when :west then       [@i,     @j - 1]
+    when :north then      [@i - 1, @j    ]
+    when :south then      [@i + 1, @j    ]
     when :north_east then [@i - 1, @j + 1]
     when :south_east then [@i + 1, @j + 1]
     when :north_west then [@i - 1, @j - 1]
