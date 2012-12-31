@@ -166,8 +166,8 @@ if __FILE__ == $PROGRAM_NAME
   source_file = ARGV.pop
   if source_file
     puts "Executing file #{source_file}"
-    ropy = Ropy.new File.read(source_file)
-    ropy.silent = not(ARGV.include?("-v"))
+    ropy = Ropy.new File.read source_file
+    ropy.silent = not(ARGV.include? "-v")
     ropy.execute
     puts "Result => #{ropy.result}"
   else
