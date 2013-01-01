@@ -81,7 +81,7 @@ The program runs until there are no more cells for the IP to move to.
 |     +     | Adds two topmost numbers and push result to stack |
 |     -     | Subtracts two topmost, push to stack              |
 |     *     | Multiplies two topmost, push to stack             |
-|     /     | Devide two topmost, push to stack                 |
+|     /     | Divide two topmost, push to stack                 |
 |     <     | Swap two topmost values                           |
 |     >     | Duplicate topmost value                           |
 |     ?     | Pop and discard topmost value                     |
