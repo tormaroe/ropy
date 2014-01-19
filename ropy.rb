@@ -24,7 +24,8 @@ class Ropy
       '%' => :modulo,
       '!' => :not,
       '[' => :put,
-      ']' => :get
+      ']' => :get,
+      '#' => :printit
     }
 
     seek_token while [' ', nil].include?(current) and not @done
@@ -155,6 +156,7 @@ class Ropy
   def duplicate ; x = pop ; @stack << x ; @stack << x         ; end
   def result    ; @stack.last                                 ; end
   def not       ; @stack << (if pop > 0 then 0 else 1 end)    ; end
+  def printit   ; print @stack.pop ; $stdout.flush            ; end
 
   def stringify_stack
     @stack = [@stack.map{|x| x.chr }.join.reverse]
