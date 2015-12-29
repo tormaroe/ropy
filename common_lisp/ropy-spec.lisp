@@ -26,3 +26,7 @@
 (example "Put 10 on the stack by joining 0 and 1"
          :source "      01&      "
          :expected 10)
+
+(example "Put 9 on the stack by adding 3, 3, and 3"
+         :source "      333++      "
+         :expected 9)
