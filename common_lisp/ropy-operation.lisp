@@ -33,8 +33,8 @@
   "Like defop-push, but pops out two elements from the stack which are bound
    to the anamorphic variables a and b."
   `(defop-push ,name ,token
-     (let ((a (op-pop program))
-           (b (op-pop program)))
+     (let ((a (:pop program))
+           (b (:pop program)))
        ,@body)))
 
 ;;;
@@ -58,7 +58,7 @@
 ;;; The operations
 ;;;
 
-(defop op-pop #\? (pop (program-stack program)))
+(defop :pop #\? (pop (program-stack program)))
 
 (defop-binary :join #\& (parse-any-value (format nil "~a~a" a b)))
 
@@ -74,10 +74,10 @@
 
 (defop-binary :swap #\< (push-value program a) b)
 
-(defop-push :not #\! (if (plusp (op-pop program)) 0 1))
+(defop-push :not #\! (if (plusp (:pop program)) 0 1))
 
 (defop :duplicate #\> 
-  (let ((x (op-pop program)))
+  (let ((x (:pop program)))
     (push-value program x)
     (push-value program x)))
 
@@ -87,12 +87,12 @@
                   (program-stack program))))
 
 (defop :put #\[
-  (let ((data (op-pop program))
-        (location (op-pop program)))
+  (let ((data (:pop program))
+        (location (:pop program)))
     (push (cons location data)
           (program-memory program))))
 
 (defop-push :get #\]
-  (let ((location (op-pop program)))
+  (let ((location (:pop program)))
     (cdr (assoc location (program-memory program)))))
 
