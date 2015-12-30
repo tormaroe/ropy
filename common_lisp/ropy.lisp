@@ -31,21 +31,50 @@
 (defun result (p)
   (car (program-stack p)))
 
-(defvar directions ;; TODO: Make direction a struct
-  '(:east :south-east :south :south-west
-    :west :north-west :north :north-east))
+(defun dbg (p token)
+  (format t "~a => [~{~a,~}~%"
+          token
+          (reverse (program-stack p))))
 
-(defun coordinates-for-direction (p direction) ;; TODO: Add modifiers to directions
-  (let ((i (program-i p)) (j (program-j p)))
-    (case direction
-      (:east       (values     i  (1+ j)))
-      (:west       (values     i  (1- j)))
-      (:north      (values (1- i)     j ))
-      (:south      (values (1+ i)     j ))
-      (:north-east (values (1- i) (1+ j)))
-      (:south-east (values (1+ i) (1+ j)))
-      (:north-west (values (1- i) (1- j)))
-      (:south-west (values (1+ i) (1- j))))))
+(defstruct direction keyword oposite i j)
+
+(defvar directions2
+  (list (make-direction :keyword :east       
+                        :oposite :west       
+                        :i 0 :j 1)
+        (make-direction :keyword :south-east 
+                        :oposite :north-west 
+                        :i 1 :j 1)
+        (make-direction :keyword :south      
+                        :oposite :north 
+                        :i 1 :j 0)
+        (make-direction :keyword :south-west 
+                        :oposite :north-east
+                        :i 1 :j -1)
+        (make-direction :keyword :west       
+                        :oposite :east
+                        :i 0 :j -1)
+        (make-direction :keyword :north-west 
+                        :oposite :south-east
+                        :i -1 :j -1)
+        (make-direction :keyword :north      
+                        :oposite :south
+                        :i -1 :j 0)
+        (make-direction :keyword :north-east 
+                        :oposite :south-west
+                        :i -1 :j 1)))
+
+(defvar directions (mapcar #'direction-keyword directions2))
+
+(defun get-direction (key)
+  (find key directions2 :key #'direction-keyword))
+
+(defun coordinates-for-direction (p direction)
+  (let ((i (program-i p)) 
+        (j (program-j p))
+        (offsets (get-direction direction)))
+    (values (+ i (direction-i offsets))
+            (+ j (direction-j offsets)))))
 
 (defun move (p direction)
   (multiple-value-bind (i j)
@@ -54,16 +83,8 @@
     (setf (program-j p) j)
     (setf (program-previous-direction p) direction)))
 
-(defun oposite (direction) ;; TODO: Add oposite to directions
-  (case direction
-    (:west :east)
-    (:east :west)
-    (:north :south)
-    (:south :north)
-    (:north-west :south-east)
-    (:south-east :north-west)
-    (:south-west :north-east)
-    (:north-east :south-west)))
+(defun oposite (direction)
+  (direction-oposite (get-direction direction)))
 
 (defun valid-coordinates-p (p i j)
   (and (not (minusp i))
@@ -88,7 +109,7 @@
     (unless (program-done p)
       (let ((came-from-index (position (oposite (program-previous-direction p)) 
                                        directions)))
-        (if (zerop (result p))
+        (if (eq 0 (result p))
           (loop for x 
                 from (+ came-from-index 7)
                 downto (- came-from-index 1)
@@ -135,24 +156,80 @@
 
 (defparameter *operations* ())
 
-(defmacro defoperation (name token &body body)
+(defmacro defop (name token &body body)
   `(progn 
-     (defun ,name ($)
-       ,@body)
+     (defun ,name (%) ,@body)
      (push (cons ,token (function ,name)) *operations*)))
 
-(defoperation op-pop #\?
-  (pop (program-stack $)))
+(defmacro defop-push (name token &body body)
+  `(defop ,name ,token
+     (push-value % (progn ,@body))))
 
-(defoperation op-join #\&
-  (push-value $
-    (parse-any-value 
-      (format nil "~a~a" 
-              (op-pop $) 
-              (op-pop $)))))
+(defmacro defop-binary (name token &body body)
+  `(defop-push ,name ,token
+     (let ((a (op-pop %))
+           (b (op-pop %)))
+       ,@body)))
 
-(defoperation op-add #\+
-  (push-value $ (+ (op-pop $) (op-pop $))))
+(defop op-pop      
+  #\? 
+  (pop (program-stack %)))
+
+(defop-binary op-join     
+  #\& 
+  (parse-any-value (format nil "~a~a" a b)))
+
+(defop-binary op-add      
+  #\+ 
+  (+ a b))
+
+(defop-binary op-subtract 
+  #\- 
+  (- a b))
+
+(defop-binary op-multiply 
+  #\* 
+  (* a b))
+
+(defop-binary op-devide   
+  #\/ 
+  (/ a b))
+
+(defop-binary op-modulo   
+  #\% 
+  (mod a b))
+
+(defop-binary op-swap     
+  #\< 
+  (push-value % a) b)
+
+(defop-push op-not      
+  #\! 
+  (if (plusp (op-pop %)) 0 1))
+
+(defop op-duplicate 
+  #\> 
+  (let ((x (op-pop %)))
+    (push-value % x)
+    (push-value % x)))
+
+(defop-push op-stringify-stack 
+  #\" 
+  (format nil "~{~a~}" 
+          (mapcar #'code-char 
+                  (program-stack %))))
+
+(defop op-put
+  #\[
+  (let ((data (op-pop %))
+        (location (op-pop %)))
+    (push (cons location data)
+          (program-memory %))))
+
+(defop-push op-get
+  #\]
+  (let ((location (op-pop %)))
+    (cdr (assoc location (program-memory %)))))
 
 (defun operationp (token)
   (cdr (assoc token *operations*)))
@@ -163,8 +240,10 @@
       ((digit-char-p token) 
        (push-value p))
       ((operationp token) ;; TODO: optimize away second call to operationp
-       (funcall (operationp token) p))))
-    (move-next p))
+       (funcall (operationp token) p)))
+    (unless (program-silent p)
+      (dbg p token))
+    (move-next p)))
 
 (defun execute (p)
   (loop until (program-done p)
