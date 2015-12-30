@@ -26,6 +26,8 @@
 (when (y-or-n-p "Do you want to run the specification test suite?")
   (load "ropy-spec"))
 
+(use-package :ropy)
+
 ;;; Some usage info is always nice...
 ;;;
 (format t "
@@ -33,10 +35,10 @@
   Example (parse \" 123++ \") ==> program
 
   Use #'execute to run a program to completion.
-  Example (execute program) ==> program
+  Example (execute *) ==> program
 
   Use #'result to get the end value.
-  Example (result program) ==> 6
+  Example (result *) ==> 6
 
   Have fun!
   ")
