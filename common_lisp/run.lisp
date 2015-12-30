@@ -1,3 +1,7 @@
+;;;;
+;;;; This file loads Ropy, optionally runs the tests
+;;;; and provide some usage information. Depends on Quicklisp.
+;;;;
 
 ;;; Load external dependencies..
 (ql:quickload "cl-ppcre")
@@ -14,22 +18,18 @@
 (load "ropy-direction")
 
 ;;; Defines the operations you program with in ropy
-;;;
 (load "ropy-operation")
 
 ;;; This defines the actual interpreter and the public API
-;;;
 (load "ropy")
 
 ;;; Maybe run spec tests
-;;;
 (when (y-or-n-p "Do you want to run the specification test suite?")
   (load "ropy-spec"))
 
 (use-package :ropy)
 
 ;;; Some usage info is always nice...
-;;;
 (format t "
   Use #'parse to prepare a program from source.
   Example (parse \" 123++ \") ==> program

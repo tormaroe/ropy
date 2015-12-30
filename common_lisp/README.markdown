@@ -4,7 +4,7 @@ Run.lisp also provides a quick overview of what the different files are.
 
 And there's currently no system definition.
 
-## Excample session
+## Example session
 
 ```
 * (parse "123++")
