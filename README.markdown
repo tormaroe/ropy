@@ -1,6 +1,6 @@
 **Ropy** is a stack-based, esoteric, 2D programming language. It's mostly works the same way as [Befunge](http://esolangs.org/wiki/Befunge), but the movement strategy of the instruction pointer is, as far as the author knows, unique to Ropy. 
 
-The interpreter is written in Ruby.
+The original interpreter is written in Ruby, and has now been ported to Common Lisp as well.
 
 ##Why?##
 This programming language is my entry into the [PLT Games](http://www.pltgames.com/) for December 2012.
