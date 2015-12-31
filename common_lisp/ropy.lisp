@@ -2,6 +2,7 @@
 (defpackage ropy
   (:use cl ropy-util ropy-state ropy-direction ropy-operation)
   (:export #:parse
+           #:parse-file
            #:execute
            #:result))
 (in-package :ropy)
@@ -54,6 +55,9 @@
                            :silent silent)))
       (seek-token p)
       p)))
+
+(defun parse-file (pathname &optional silent)
+  (parse (slurp pathname) silent))
 
 (defun evaluate (p)
   (let* ((token (current-token p))

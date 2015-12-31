@@ -4,7 +4,8 @@
   (:use cl)
   (:export #:parse-any-value
            #:spacep
-           #:string-to-matrix))
+           #:string-to-matrix
+           #:slurp))
 (in-package :ropy-util)
 
 (defun parse-any-value (x)
@@ -44,3 +45,9 @@
       :initial-contents
       (mapcar (list-padder second-dimention #\space)
               lists))))
+
+(defun slurp (path)
+  (with-open-file (stream path)
+    (let ((data (make-string (file-length stream))))
+      (read-sequence data stream)
+      data)))

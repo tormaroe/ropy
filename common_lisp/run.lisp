@@ -33,6 +33,7 @@
 (format t "
   Use #'parse to prepare a program from source.
   Example (parse \" 123++ \") ==> program
+  Or (parse-file \"some/path/file.ropy\") ==> program
 
   Use #'execute to run a program to completion.
   Example (execute *) ==> program
