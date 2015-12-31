@@ -22,26 +22,20 @@
           (null (remove-if #'spacep neighbors)))
 
     (unless (program-done p)
-      (let ((came-from-index (position (oposite (program-previous-direction p)) 
-                                       directions)))
-        (if (eql 0 (result p))
-          (loop for x 
-                from (+ came-from-index 7)
-                downto (- came-from-index 1)
-                for i = (mod x 8)
-                when (not (spacep (nth i neighbors)))
-                do (progn 
-                     (move p (nth i directions))
-                     (return)))
-          (loop for x 
-                from (+ came-from-index 1)
-                upto (+ came-from-index 9)
-                for i = (mod x 8)
-                when (not (spacep (nth i neighbors)))
-                do (progn 
-                     (move p (nth i directions))
-                     (return)))
-          )))
+      (macrolet ((find-next-and-move (from direction to)
+                   `(loop for x from ,from ,direction ,to
+                          for i = (mod x 8)
+                          when (not (spacep (nth i neighbors)))
+                          do (progn 
+                               (move p (nth i directions))
+                               (return)))))
+        (let ((came-from-index (position (oposite (program-previous-direction p)) 
+                                         directions)))
+          (if (eql 0 (result p))
+            (find-next-and-move 
+              (+ came-from-index 7) downto (- came-from-index 1))
+            (find-next-and-move 
+              (+ came-from-index 1) upto (+ came-from-index 9))))))
     p))
 
 (defun parse (source &optional silent)
