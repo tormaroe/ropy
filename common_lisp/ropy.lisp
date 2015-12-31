@@ -24,7 +24,7 @@
     (unless (program-done p)
       (let ((came-from-index (position (oposite (program-previous-direction p)) 
                                        directions)))
-        (if (eq 0 (result p))
+        (if (eql 0 (result p))
           (loop for x 
                 from (+ came-from-index 7)
                 downto (- came-from-index 1)

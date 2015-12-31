@@ -37,7 +37,7 @@
                       in (cl-ppcre:split "\\r?\\n" s)
                       collect (string-to-chars line)))
          (first-dimention (length lists))
-         (second-dimention (apply #'max (mapcar #'length lists))))
+         (second-dimention (reduce #'max (mapcar #'length lists))))
     (make-array 
       (list first-dimention second-dimention)
       :element-type 'character
