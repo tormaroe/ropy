@@ -39,29 +39,30 @@
     p))
 
 (defun parse (source &optional silent)
-  (labels ((program-seek-token (p)
+  (labels ((seek-token (p)
               (when (and (not (program-done p))
                          (eql (current-token p) #\space))
                 (cond
                   ((< (program-j p) (max-j p))
                    (move p :east)
-                   (program-seek-token p))
+                   (seek-token p))
                   ((< (program-i p) (max-i p))
                    (incf (program-i p))
                    (setf (program-j p) 0)
-                   (program-seek-token p))))))
+                   (seek-token p))))))
     (let ((p (make-program :tokens (string-to-matrix source)
                            :silent silent)))
-      (program-seek-token p)
+      (seek-token p)
       p)))
 
 (defun evaluate (p)
-  (let ((token (current-token p)))
+  (let* ((token (current-token p))
+         (operation (operationp token)))
     (cond
       ((digit-char-p token) 
        (push-value p))
-      ((operationp token) ;; TODO: optimize away second call to operationp
-       (funcall (operationp token) p)))
+      (operation
+       (funcall operation p)))
     (unless (program-silent p)
       (dbg p token))
     (move-next p)))
