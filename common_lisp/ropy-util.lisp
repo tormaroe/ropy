@@ -19,12 +19,13 @@
   "Returns a function which given a list will pad it
    to the specified length with pad-value."
   (lambda (list)
-    (if (> length (length list))
-      (append list (loop for i
-                         from (length list) 
-                         below length 
-                         collect pad-value))
-      list)))
+    (let ((actual-length (length list)))
+     (if (> length actual-length)
+       (append list (loop for i
+                          from actual-length 
+                          below length 
+                          collect pad-value))
+       list))))
 
 (defun string-to-chars (s)
   (loop for c across s collect c))
