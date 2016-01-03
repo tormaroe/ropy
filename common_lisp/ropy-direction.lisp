@@ -63,6 +63,15 @@
        (<= j (max-j p))))
 
 (defun token-peeker (p)
+  "Returns a function which can be used to peek at the token value
+   of the program for a particular direction keyword.
+
+   If the direction points to the cell we just came from, #\space
+   is returned, since we should never go back directly.
+
+   If the direction moves outside of the program #\space is also
+   returned."
+  (declare (ropy-state:program p))
   (lambda (direction)
     (multiple-value-bind (i j)
         (coordinates-for-direction p direction)
