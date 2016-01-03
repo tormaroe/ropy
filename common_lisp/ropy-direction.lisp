@@ -41,7 +41,8 @@
                         :i -1 :j 1)))
 
 (defvar directions 
-  (mapcar #'direction-keyword directions-internal))
+  (mapcar #'direction-keyword directions-internal)
+  "Contains all legal directions as keywords")
 
 (defun get-direction (key)
   (find key directions-internal :key #'direction-keyword))
