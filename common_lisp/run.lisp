@@ -5,6 +5,7 @@
 
 ;;; Load external dependencies..
 (ql:quickload "cl-ppcre")
+(ql:quickload "anaphora")
 
 ;;; ropy-util contain some common utility functions
 (load "ropy-util")

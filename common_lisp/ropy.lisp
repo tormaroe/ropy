@@ -1,6 +1,6 @@
 (in-package :cl-user)
 (defpackage ropy
-  (:use cl ropy-util ropy-state ropy-direction ropy-operation)
+  (:use cl ropy-util ropy-state ropy-direction ropy-operation anaphora)
   (:export #:parse
            #:parse-file
            #:execute
@@ -60,13 +60,12 @@
   (parse (slurp pathname) silent))
 
 (defun evaluate (p)
-  (let* ((token (current-token p))
-         (operation (operationp token)))
-    (cond
+  (let ((token (current-token p)))
+    (acond
       ((digit-char-p token) 
-       (push-value p))
-      (operation
-       (funcall operation p)))
+       (push-value p it))
+      ((operationp token)
+       (funcall it p)))
     (unless (program-silent p)
       (dbg p token))
     (move-next p)))

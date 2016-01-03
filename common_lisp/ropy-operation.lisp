@@ -46,13 +46,9 @@
    If not, nil is returned."
   (cdr (assoc token *operations*)))
 
-(defun push-value (p &optional value)
-  "Push a value onto the program stack. If value is not provided,
-   the integer value represented by the character token currently
-   pointed to is pushed."
-  (push (or value 
-            (digit-char-p (current-token p)))
-        (program-stack p)))
+(defun push-value (p value)
+  "Push a value onto the program stack."
+  (push value (program-stack p)))
 
 ;;;
 ;;; The operations
