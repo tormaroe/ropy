@@ -9,11 +9,10 @@
 (in-package :ropy-direction)
 
 (defstruct direction 
-  keyword 
-  oposite 
-  i 
-  j
-  )
+  keyword  ; Identifies the direction
+  oposite  ; Identifies the oposite direction
+  i        ; Change to first dimension to go in this direction (between -1 and 1)
+  j)       ; Change to second dimension to go in this direction (between -1 and 1)
 
 (defvar directions-internal
   (list (make-direction :keyword :east       
