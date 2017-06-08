@@ -2,10 +2,10 @@
 
 The original interpreter is written in Ruby, and has now been ported to Common Lisp as well.
 
-##Why?##
+## Why?
 This programming language is my entry into the [PLT Games](http://www.pltgames.com/) for December 2012.
 
-##Code sample##
+## Code sample
 This solution to [Project Euler problem #1](http://projecteuler.net/problem=1) is the first real program ever written in Ropy:
 
        0_99872***-______   (c) Torbjorn Maro    __+___
@@ -28,7 +28,7 @@ This solution to [Project Euler problem #1](http://projecteuler.net/problem=1) i
              |                                   |
              |_______________NOT_INCLUDED________|
 
-##Usage##
+## Usage
 In order to run Ropy you need to have Ruby installed. You may then run the interpreter from the command line, giving it a file with Ropy-code to evaluate as the first and only argument.
 
     PS> .\ropy.rb .\examples\euler1.ropy
@@ -43,8 +43,8 @@ You may also provide the v-option for verbose output. This will display the cont
 
     PS> .\ropy.rb -v .\examples\euler1.ropy
 
-##How it works##
-###Initialization and program flow###
+## How it works
+### Initialization and program flow
 First the source is scanned from left to right, top to bottom, to find the first non-whitespace character; this is the first instruction. The next instruction is then found by moving the instruction pointer (IP) to a non-whitespace character one step in any direction (north, north-east, east, south-east, south, south-west, west, north-west).
 
 The previous instruction will never be selected as the next instruction, leaving only seven possible directions. Of the possibilities that are left, the interpreter will select the first in the clockwise direction from the direction from the previous IP position. Given these "cells":
@@ -73,7 +73,7 @@ The next instruction would be **A**. This is only the case though if the topmost
 
 The program runs until there are no more cells for the IP to move to.
 
-###Instruction###
+### Instruction
 
 | Character | Instruction                                       |
 | --------- | ------------------------------------------------- |
@@ -94,7 +94,7 @@ The program runs until there are no more cells for the IP to move to.
 |     ]     | Gets value stored at the location found on top of stack. Pushes in onto the stack. |
 |   Other   | Other characters does not modify the stack, bu are valid placeholders for the IP.        |
 
-##Another example##
+## Another example
 If you have understood how Ropy works, you should now be able to understand what the following program does:
 
     ?_1     __
@@ -156,7 +156,7 @@ Here is a dump of how the instructions modify the stack:
 
 The result is what's left on the top of the stack. The program calculates the sum of all digits from 1 to 9.
 
-##Hello, World!##
+## Hello, World!
 And finally, here is the obligatory *hello, world* program - just as [Kernighan & Ritchi](http://en.wikipedia.org/wiki/The_C_Programming_Language) did in 1978. This one acts as a programming language logo as well.
 
     |   __+8>____-<3>____+6>__ _________________________
@@ -172,7 +172,7 @@ And finally, here is the obligatory *hello, world* program - just as [Kernighan 
 
 Ropy has a high potential for creating programs that are also ASCII art :)
 
-##License##
+## License
 Copyright (c) 2012 Torbjørn Marø
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
