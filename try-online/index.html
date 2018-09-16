@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Try the Ropy programming language online">
+    <meta name="author" content="Torbjørn Marø">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="tryropy.css" />
+    <title>Try Ropy</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary mb-4">
+        <a class="navbar-brand" href="#">Try Ropy</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto" style="float: right">
+            <li class="nav-item">
+                <a class="nav-link" href="https://esolangs.org/wiki/Ropy">About Ropy</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Help</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://github.com/tormaroe/ropy">Ropy on Github</a>
+            </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid" id="app">
+        <div class="row">
+            <div class="col-6">
+                <h3>Type your program here</h3>
+                <div>
+                    Or load example: 
+                    <select class="form-control" v-model="source">
+                        <option v-for="ex in examples" v-bind:value="ex.source">{{ ex.title }}</option>
+                    </select>
+                </div>
+                <textarea class="form-control" style="width:100%;height:350px;font-family:monospace" v-model="source"></textarea>
+                <button class="btn btn-primary" v-on:click="runProgram()">Run program</button>
+                <button class="btn btn-danger" v-on:click="stopProgram()">Stop</button>
+            </div>
+            <div class="col-6">
+                <h3>Program state</h3>
+                <table class="table table-hover">
+                    <tbody>
+                        <tr class="table-active">
+                            <th scope="row">Iteration count:</th>
+                            <td>{{ intervalCount }}</td>
+                            <th scope="row">Sleep length:</th>
+                            <td>{{ sleepLength }}ms</td>
+                        </tr>
+                        <tr class="table-active">
+                            <th scope="row">Current instruction:</th>
+                            <td><span class="badge badge-info">{{ token }}</span></td>
+                            <th scope="row">Coordinates:</th>
+                            <td>row: {{ program.i }}, column: {{ program.j }}</td>
+                        </tr>
+                        <tr class="table-active">
+                            <th scope="row">Stack:</th>
+                            <td colspan="3">
+                                <span class="badge badge-success" v-for="x in program.stack">{{ x }}</span>
+                            </td>
+                        </tr>
+                        <tr class="table-active">
+                            <th scope="row">Memory:</th>
+                            <td colspan="3"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h5>Output &gt;&gt; {{ output }}</h5>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="ropy.js"></script>
+    <script src="tryropy.js"></script>
+  </body>
+</html>
